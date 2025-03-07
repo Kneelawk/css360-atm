@@ -1,3 +1,12 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
-<a href="/demo">Demo</a>
+<script lang="ts">
+	import { enhance } from '$app/forms';
+	import type { PageServerData } from './$types';
+
+	let { data }: { data: PageServerData } = $props();
+</script>
+
+<h1>Hi, {data.user.username}!</h1>
+<p>Your user ID is {data.user.id}.</p>
+<form method="post" action="?/logout" use:enhance>
+	<button>Sign out</button>
+</form>
