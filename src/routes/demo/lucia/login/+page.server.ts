@@ -20,6 +20,8 @@ export const actions: Actions = {
 		const username = formData.get('username');
 		const password = formData.get('password');
 
+		const userAgent = event.request.headers.get('User-Agent');
+
 		if (!validateUsername(username)) {
 			return fail(400, {
 				message: 'Invalid username (min 3, max 31 characters, alphanumeric only)'
@@ -47,7 +49,7 @@ export const actions: Actions = {
 		}
 
 		const sessionToken = auth.generateSessionToken();
-		const session = await auth.createSession(sessionToken, existingUser.id);
+		const session = await auth.createSession(sessionToken, existingUser.id, userAgent);
 		auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
 
 		return redirect(302, '/demo/lucia');
@@ -56,6 +58,8 @@ export const actions: Actions = {
 		const formData = await event.request.formData();
 		const username = formData.get('username');
 		const password = formData.get('password');
+
+		const userAgent = event.request.headers.get('User-Agent');
 
 		if (!validateUsername(username)) {
 			return fail(400, { message: 'Invalid username' });
@@ -77,7 +81,7 @@ export const actions: Actions = {
 			await db.insert(table.user).values({ id: userId, username, passwordHash });
 
 			const sessionToken = auth.generateSessionToken();
-			const session = await auth.createSession(sessionToken, userId);
+			const session = await auth.createSession(sessionToken, userId, userAgent);
 			auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
 		} catch (e) {
 			return fail(500, { message: 'An error has occurred' });
