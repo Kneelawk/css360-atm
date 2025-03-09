@@ -49,6 +49,9 @@ export const withdraw = pgTable('withdraw', {
 export const transfer = pgTable('transfer', {
 	id: text('id').primaryKey(),
 	date: timestamp('date').notNull(),
+	initiatorId: text("initiator_id")
+		.notNull()
+		.references(() => session.id),
 	fromAccountId: text('from_account_id')
 		.notNull()
 		.references(() => account.id),
