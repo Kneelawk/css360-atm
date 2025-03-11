@@ -10,8 +10,8 @@ export const load: PageServerLoad = async (event) => {
 };
 
 export const actions: Actions = {
-	deposit: async (event) => {
-		if (!event.locals.user || !event.locals.session) {
+	withdraw: async (event) => {
+		if (!event.locals.user) {
 			return fail(401);
 		}
 
@@ -21,9 +21,9 @@ export const actions: Actions = {
 
 		const userAgent = event.request.headers.get('User-Agent');
 
-		const res = await accounts.deposit(event.locals.user.id, userAgent, accountName, amount);
+		const res = await accounts.withdraw(event.locals.user.id, userAgent, accountName, amount);
 		if (!res.success) {
 			return fail(401, { message: res.message });
 		}
 	}
-}
+};

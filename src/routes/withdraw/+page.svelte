@@ -9,9 +9,9 @@
 	let selectedAccount = $derived(data.accounts.find(x => x.name === accountName));
 </script>
 
-<h1>{ data.user.username } Deposits</h1>
+<h1>{ data.user.username } Withdrawals</h1>
 
-<form method="POST" action="?/deposit" use:enhance>
+<form method="POST" action="?/withdraw" use:enhance>
 	<div>
 		<label>
 			Account:
@@ -29,6 +29,6 @@
 			<input name="amount" />
 		</label>
 	</div>
-	<button type="submit">Deposit</button>
+	<button type="submit">Withdraw</button>
 </form>
 <p style="color: red">{form?.message ?? ''}</p>

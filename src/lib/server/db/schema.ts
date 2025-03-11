@@ -30,9 +30,7 @@ export const account = pgTable('account', {
 export const deposit = pgTable('deposit', {
 	id: text('id').primaryKey(),
 	date: timestamp('date').notNull(),
-	initiatorId: text("initiator_id")
-		.notNull()
-		.references(() => session.id),
+	initiatorUserAgent: text("user_agent"),
 	accountId: text('account_id')
 		.notNull()
 		.references(() => account.id),
@@ -43,9 +41,7 @@ export const deposit = pgTable('deposit', {
 export const withdraw = pgTable('withdraw', {
 	id: text('id').primaryKey(),
 	date: timestamp('date').notNull(),
-	initiatorId: text("initiator_id")
-		.notNull()
-		.references(() => session.id),
+	initiatorUserAgent: text("user_agent"),
 	accountId: text('account_id')
 		.notNull()
 		.references(() => account.id),
@@ -56,9 +52,7 @@ export const withdraw = pgTable('withdraw', {
 export const transfer = pgTable('transfer', {
 	id: text('id').primaryKey(),
 	date: timestamp('date').notNull(),
-	initiatorId: text("initiator_id")
-		.notNull()
-		.references(() => session.id),
+	initiatorUserAgent: text("user_agent"),
 	fromAccountId: text('from_account_id')
 		.notNull()
 		.references(() => account.id),

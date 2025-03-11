@@ -33,7 +33,7 @@
 	<h2>Create Account</h2>
 	<form method="POST" action="?/create" use:enhance>
 		<label>
-			Account Name
+			Account Name:
 			<input name="name" />
 		</label>
 		<button>Create</button>
