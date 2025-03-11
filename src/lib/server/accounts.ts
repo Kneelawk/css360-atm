@@ -57,6 +57,14 @@ async function setAccountValue(userId: string, account: string, amount: number) 
 }
 
 export async function deposit(userId: string, userAgent: string | null, accountName: string, amount: number): Promise<{ success: boolean, message: string | null }> {
+	if (isNaN(amount)) {
+		return { success: false, message: `${amount} is not a valid amount` };
+	}
+
+	if (amount <= 0) {
+		return { success: false, message: `${amount} is not greater than 0` };
+	}
+
 	const account = await getAccount(userId, accountName);
 	if (!account) {
 		return { success: false, message: `Account ${accountName} not found` };
@@ -78,6 +86,14 @@ export async function deposit(userId: string, userAgent: string | null, accountN
 }
 
 export async function withdraw(userId: string, userAgent: string | null, accountName: string, amount: number): Promise<{ success: boolean, message: string | null }> {
+	if (isNaN(amount)) {
+		return { success: false, message: `${amount} is not a valid amount` };
+	}
+
+	if (amount <= 0) {
+		return { success: false, message: `${amount} is not greater than 0` };
+	}
+
 	const account = await getAccount(userId, accountName);
 	if (!account) {
 		return { success: false, message: `Account ${accountName} not found` };

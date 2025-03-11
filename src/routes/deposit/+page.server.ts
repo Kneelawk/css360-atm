@@ -19,6 +19,10 @@ export const actions: Actions = {
 		const accountName = String(formData.get('account'));
 		const amount = Number(formData.get('amount'));
 
+		if (isNaN(amount)) {
+			return fail(401, { message: `${formData.get('amount')} is not a valid amount` });
+		}
+
 		const userAgent = event.request.headers.get('User-Agent');
 
 		const res = await accounts.deposit(event.locals.user.id, userAgent, accountName, amount);
