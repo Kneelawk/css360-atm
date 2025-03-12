@@ -18,7 +18,7 @@ export async function getAllAccounts(userId: string) {
 		account: table.account
 	})
 		.from(table.account)
-		.innerJoin(table.user, eq(table.user.id, userId));
+		.where(eq(table.account.userId, userId));
 
 	return result.map(a => a.account).sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
 }
