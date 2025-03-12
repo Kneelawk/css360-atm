@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import type { PageServerData } from './$types';
+	import type { ActionData, PageServerData } from './$types';
 
-	let { data }: { data: PageServerData } = $props();
+	let { form, data }: { form: ActionData, data: PageServerData } = $props();
 </script>
 
 <h1>{data.user.username} Accounts</h1>
@@ -38,4 +38,5 @@
 		</label>
 		<button>Create</button>
 	</form>
+	<p style="color: red">{form?.message ?? ''}</p>
 </div>
